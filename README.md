@@ -7,6 +7,13 @@ and the data isn't available in a machine-readable format that could enable more
 
 ![alt text](https://github.com/pastelsky/covid-19-mobility-tracker/raw/master/code.png "")
 
+## Usage
+The JSON is available for use at –
+```
+https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility.json
+```
+
+For eg: India: https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility.json
 
 ## Limitations
 - Expected error range is ±2%, though errors in activity percentanges 
