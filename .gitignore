@@ -2,3 +2,4 @@ node_modules
 pdfs
 images
 parseValues.js
+output/*/*.svg

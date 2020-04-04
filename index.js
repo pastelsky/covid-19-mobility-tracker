@@ -7,8 +7,8 @@ const rimraf = require('rimraf');
 const { default: PQueue } = require('p-queue');
 
 const CURRENT_DATE = '2020-03-29';
-const DOWNLOAD_CONCURRENCY = 10;
-const PROCESS_CONCURRENCY = 1;
+const DOWNLOAD_CONCURRENCY = 15;
+const PROCESS_CONCURRENCY = 10;
 
 function makePDFUrl(date, countryCode) {
   return `https://www.gstatic.com/covid19/mobility/${date}_${countryCode}_Mobility_Report_en.pdf`;
@@ -79,9 +79,9 @@ function processForAllCountries(countryCodes) {
     if (charts.length !== 6) {
       throw new Error('Expected to receive 6 graphs, got: ', charts.length);
     }
-    const json = {};
+    const json = { country: {} };
     charts.forEach((chart, i) => {
-      json[chartTypes[i]] = chart;
+      json.country[chartTypes[i]] = chart;
     });
 
     fs.writeFileSync(
@@ -89,6 +89,7 @@ function processForAllCountries(countryCodes) {
       JSON.stringify(json, null, 2),
       'utf8'
     );
+
     console.log('Wrote to file...', countryCode);
   });
 
