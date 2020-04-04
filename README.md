@@ -29,3 +29,7 @@ You can test this using `inkscape --version`
 
 3. Run `yarn build` to begin downloading reports form google, and parsing it into the `ouput` folder.
 
+## Credits
+All data made available for use is by taken from Google Mobility Reports. 
+This project does not claim any ownership over this data.
+
