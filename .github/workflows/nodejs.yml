@@ -20,10 +20,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: EndBug/add-and-commit@v4.0.1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+        message: Updating data files
     - run: yarn install
     - run: yarn build
       env:
