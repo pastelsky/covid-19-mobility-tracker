@@ -13,6 +13,8 @@ The JSON is available for use at –
 https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility.json
 ```
 
+Each data element consists of `date` and `value` (which represents mobility change in percentage)
+
 For eg: India: https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility.json
 
 ## Limitations
