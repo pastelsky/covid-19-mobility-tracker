@@ -20,13 +20,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: EndBug/add-and-commit@v4.0.1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        message: Updating data files
+    - run: sudo add-apt-repository universe
+    - run: sudo add-apt-repository ppa:inkscape.dev/stable
+    - run: sudo apt-get update  
+    - run: sudo apt install inkscape
     - run: yarn install
     - run: yarn build
+    - name: Build data set
+      uses: EndBug/add-and-commit@v4.0.1
+      with:
+        message: Updating data files
       env:
         CI: true
