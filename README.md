@@ -5,6 +5,9 @@ and the data isn't available in a machine-readable format that could enable more
 
 **This is an effort to reverse-engineer the PDFs into vectors and ultimately into time-series data available as a JSON Rest API.**
 
+![alt text](https://github.com/pastelsky/covid-19-mobility-tracker/raw/master/code.png "")
+
+
 ## Limitations
 - Expected error range is ±2%, though errors in activity percentanges 
  should be rare given the methodolgy used to extract data.
