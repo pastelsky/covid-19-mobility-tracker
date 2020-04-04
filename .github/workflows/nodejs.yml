@@ -26,10 +26,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: sudo snap install --candidate inkscape
     - run: yarn install
-    - run: yarn build
-    - name: Build data set
-      uses: EndBug/add-and-commit@v4.0.1
-      with:
-        message: Updating data files
       env:
         CI: true
