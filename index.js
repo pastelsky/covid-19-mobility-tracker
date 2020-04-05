@@ -5,10 +5,10 @@ const download = require('download');
 const countryCodes = require('country-codes-list');
 const rimraf = require('rimraf');
 const { default: PQueue } = require('p-queue');
+const Worker = require('jest-worker');
 
-const CURRENT_DATE = '2020-03-29';
-const DOWNLOAD_CONCURRENCY = 15;
-const PROCESS_CONCURRENCY = 10;
+const DATA_LAST_AVAILABLE_FOR_DATE = '2020-03-29';
+const DOWNLOAD_CONCURRENCY = 20;
 
 function makePDFUrl(date, countryCode) {
   return `https://www.gstatic.com/covid19/mobility/${date}_${countryCode}_Mobility_Report_en.pdf`;
@@ -31,7 +31,7 @@ const outputPath = path.join(__dirname, 'output');
 
 async function downloadPdf(countryCode) {
   const pdfPath = path.join(pdfsPath, countryCode);
-  const fileUrl = makePDFUrl(CURRENT_DATE, countryCode);
+  const fileUrl = makePDFUrl(DATA_LAST_AVAILABLE_FOR_DATE, countryCode);
   console.log('Downloading...', fileUrl);
   await download(fileUrl, pdfPath, { filename: 'mobility.pdf' });
 }
@@ -65,6 +65,8 @@ function downloadForAllCountries() {
 }
 
 function processForAllCountries(countryCodes) {
+  const processWorker = new Worker(require.resolve('./parseFromPdf'));
+
   cleanPath(outputPath);
 
   countryCodes.forEach(async (countryCode) => {
@@ -72,8 +74,12 @@ function processForAllCountries(countryCodes) {
 
     console.log('Processing...', countryCode);
     const pdfPath = path.join(pdfsPath, countryCode, 'mobility.pdf');
-    const page1Charts = await processQueue.add(() => processPDFPage(pdfPath, 1, fileOutputPath));
-    const page2Charts = await processQueue.add(() => processPDFPage(pdfPath, 2, fileOutputPath));
+    const page1Charts = await processQueue.add(() =>
+      processWorker.processPDFPage(pdfPath, 1, fileOutputPath)
+    );
+    const page2Charts = await processQueue.add(() =>
+      processWorker.processPDFPage(pdfPath, 2, fileOutputPath)
+    );
     const charts = page1Charts.concat(page2Charts);
 
     if (charts.length !== 6) {
