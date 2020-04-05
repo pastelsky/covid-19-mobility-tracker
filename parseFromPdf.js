@@ -192,4 +192,4 @@ async function processPDFPage(pdfPath, pageNumber, outputPath) {
   return chartsProcessed;
 }
 
-module.exports = processPDFPage;
+module.exports = { processPDFPage };

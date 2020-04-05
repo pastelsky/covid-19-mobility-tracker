@@ -5,10 +5,11 @@ const download = require('download');
 const countryCodes = require('country-codes-list');
 const rimraf = require('rimraf');
 const { default: PQueue } = require('p-queue');
-const Worker = require('jest-worker');
+const { default: Worker } = require('jest-worker');
 
 const DATA_LAST_AVAILABLE_FOR_DATE = '2020-03-29';
 const DOWNLOAD_CONCURRENCY = 20;
+const PROCESS_CONCURRENCY = 30;
 
 function makePDFUrl(date, countryCode) {
   return `https://www.gstatic.com/covid19/mobility/${date}_${countryCode}_Mobility_Report_en.pdf`;
