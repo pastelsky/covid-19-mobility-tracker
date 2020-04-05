@@ -22,6 +22,7 @@ For eg: India: https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/m
  should be rare given the methodolgy used to extract data.
 - As of now, this only indexes country-level data. State / Province level breakup is yet to be added.
 - Data sources will be updated once / day and is incumbent upon google publishing updated reports
+- It assumes that the same scale (-80% to +80%) is used in all PDFs and are structured similarly.
 
 ## Contributing
 1. Run `yarn install` to install dependencies.
