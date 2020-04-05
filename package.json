@@ -10,6 +10,7 @@
     "euclidean-distance": "^1.0.0",
     "execa": "^4.0.0",
     "get-pixels": "^3.3.2",
+    "jest-worker": "^25.2.6",
     "jimp": "^0.10.0",
     "jsdom": "^16.2.2",
     "json-csv": "^3.0.1",

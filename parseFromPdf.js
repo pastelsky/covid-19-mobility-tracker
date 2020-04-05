@@ -4,22 +4,20 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 const path = require('path');
 const { compressSVG, scale } = require('./utils');
-const { format } = require('date-fns');
 
-const X_DATE_MIN = new Date(2020, 2, 16);
-const X_DATE_MAX = new Date(2020, 3, 29);
+const X_DATE_MIN = new Date(2020, 1, 16);
+const X_DATE_MAX = new Date(2020, 2, 29);
 
 const Y_PERCENT_MAX = 80;
 
 async function pdfToSVG(pdfFile, pageNumber, exportPath) {
   console.log(
-    `inkscape --without-gui --pdf-poppler=false --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile} `
+    `inkscape --without-gui --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile} `
   );
   shell.exec(
-    `inkscape --without-gui --pdf-poppler=false --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile}`
+    `inkscape --without-gui --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile}`
   );
   const svg = fs.readFileSync(exportPath, 'utf8');
-  const optimized = await compressSVG(svg);
   fs.writeFileSync(exportPath, svg, 'utf8');
   return svg;
 }
@@ -117,10 +115,10 @@ async function stripSVG(page) {
 
     if (gridPaths.length !== seriesPaths.length * 5) {
       throw new Error(
-        'Each series path mush have 5 grid paths, found: gridpaths - ',
-        gridPaths,
-        ' seriespaths ',
-        seriesPaths
+        'Each series path mush have 5 grid paths, found: gridpaths - ' +
+          gridPaths.length +
+          ' and series path ' +
+          seriesPaths.length
       );
     }
 
@@ -172,8 +170,12 @@ async function processPDFPage(pdfPath, pageNumber, outputPath) {
     let doneDates = [];
     let downsampledPoints = [];
 
+    const pad = (number) => (number <= 9 ? `0${number}` : number);
+    const formatDate = (date) =>
+      `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+
     for (let i = points.length - 1; i >= 0; i--) {
-      const date = format(points[i].timestamp, 'y-MM-dd');
+      const date = formatDate(new Date(points[i].timestamp));
       if (doneDates.includes(date)) {
         continue;
       }
