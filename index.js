@@ -65,19 +65,23 @@ function downloadForAll(geographies) {
     }
   });
 
-  console.log(
-    'Total: ',
-    geographies.length,
-    'Download Succeeded: ',
-    successGeographyCodes.length,
-    'Download Failed: ',
-    geographies.length - successGeographyCodes.length
-  );
-  return downloadQueue.onIdle().then(() => successGeographyCodes);
+  return downloadQueue.onIdle().then(() => {
+    console.log(
+      'Total: ',
+      geographies.length,
+      'Download Succeeded: ',
+      successGeographyCodes.length,
+      'Download Failed: ',
+      geographies.length - successGeographyCodes.length
+    );
+    return successGeographyCodes;
+  });
 }
 
 function processForAll(geographyCodes, stateFromCountryCode) {
   const processWorker = new Worker(require.resolve('./parseFromPdf'));
+  processWorker.getStderr().pipe(process.stderr);
+  processWorker.getStdout().pipe(process.stdout);
 
   geographyCodes.forEach(async (geographyCode) => {
     const fileOutputPath = stateFromCountryCode

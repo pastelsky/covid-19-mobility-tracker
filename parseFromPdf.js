@@ -5,8 +5,8 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const { compressSVG, scale } = require('./utils');
 
-const X_DATE_MIN = new Date(2020, 1, 16);
-const X_DATE_MAX = new Date(2020, 2, 29);
+const X_DATE_MIN = new Date(Date.UTC(2020, 1, 16, 0, 0, 1));
+const X_DATE_MAX = new Date(Date.UTC(2020, 2, 29, 23, 59, 59));
 
 const Y_PERCENT_MAX = 80;
 
@@ -41,7 +41,7 @@ async function getPageCanvas(content) {
 
 async function stripSVG(page) {
   return page.evaluate(() => {
-    const RESOLUTION = 1000;
+    const RESOLUTION = 3000;
     const svg = document.querySelector('svg');
     const blacklistedSelectors = [
       'symbol',
@@ -172,7 +172,7 @@ async function processPDFPage(pdfPath, pageNumber, outputPath) {
 
     const pad = (number) => (number <= 9 ? `0${number}` : number);
     const formatDate = (date) =>
-      `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+      `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}`;
 
     for (let i = points.length - 1; i >= 0; i--) {
       const date = formatDate(new Date(points[i].timestamp));

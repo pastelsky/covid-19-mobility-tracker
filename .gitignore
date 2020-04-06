@@ -3,3 +3,4 @@ pdfs
 images
 parseValues.js
 output/**/*.svg
+output/**/mobility-detail.json
