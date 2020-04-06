@@ -1,4 +1,4 @@
-# Covid-19 Mobility Tracker [![last updated](https://badgen.net/badge/last%20updated/April%206th%203:15%20PM%20GMT/green)]
+# Covid-19 Mobility Tracker ![last updated](https://badgen.net/badge/last%20updated/April%206th%203:15%20PM%20GMT/green)
 
 [Google Mobility Reports](https://www.google.com/covid19/mobility/) show aggregate activity in each country,
 and how it changes in response to policies aimed at combating COVID-19. However, it is only published as a PDF
@@ -30,11 +30,13 @@ https://pastelsky.github.io/covid-19-mobility-tracker/output/US/<US-STATE-CODE>/
 
 **For eg: New York**: https://pastelsky.github.io/covid-19-mobility-tracker/output/US/NY/mobility.json
 
-### Data structure
+---
+
+#### Data structure
 
 Each data element consists of `date` and `value` (which represents mobility change in percentage)
 
-### Other Data Formats
+#### Other Data Formats
 
 Data is made available only in JSON Format right as of now.
 If you prefer to use CSVs instead, please use https://json-csv.com/ to convert
