@@ -7,6 +7,8 @@ const rimraf = require('rimraf');
 const { default: PQueue } = require('p-queue');
 const { default: Worker } = require('jest-worker');
 const USStates = require('./lib/us-states');
+const { jsonArrayToCSV } = require('./utils');
+const { paramCase } = require('change-case');
 
 const DATA_LAST_AVAILABLE_FOR_DATE = '2020-03-29';
 const DOWNLOAD_CONCURRENCY = 20;
@@ -106,9 +108,12 @@ function processForAll(geographyCodes, stateFromCountryCode) {
     if (charts.length !== 6) {
       throw new Error('Expected to receive 6 graphs, got: ', charts.length);
     }
-    const json = stateFromCountryCode ? { state: {} } : { country: {} };
+
+    const jsonKey = stateFromCountryCode ? 'state' : 'country';
+    const json = { [jsonKey]: {} };
+
     charts.forEach((chart, i) => {
-      json[stateFromCountryCode ? 'state' : 'country'][chartTypes[i]] = chart;
+      json[jsonKey][chartTypes[i]] = chart;
     });
 
     fs.writeFileSync(
@@ -117,6 +122,13 @@ function processForAll(geographyCodes, stateFromCountryCode) {
       'utf8'
     );
 
+    charts.forEach((chart, i) => {
+      fs.writeFileSync(
+        path.join(fileOutputPath, `mobility-${paramCase(chartTypes[i])}.csv`),
+        jsonArrayToCSV(json[jsonKey][chartTypes[i]].points),
+        'utf8'
+      );
+    });
     console.log('Wrote to file...', geographyCode);
   });
 

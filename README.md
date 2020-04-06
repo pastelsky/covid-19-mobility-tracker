@@ -1,5 +1,6 @@
-# Covid-19 Mobility Tracker 
-![last synced from source](https://badgen.net/badge/last%20updated%20from%20source/April%206th%203:15%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%202nd%205:21%20AM%20GMT/blue)
+# Covid-19 Mobility Tracker
+
+![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%206th%203:15%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%202nd%205:21%20AM%20GMT/blue)
 
 [Google Mobility Reports](https://www.google.com/covid19/mobility/) show aggregate activity in each country,
 and how it changes in response to policies aimed at combating COVID-19. However, it is only published as a PDF
@@ -33,15 +34,23 @@ https://pastelsky.github.io/covid-19-mobility-tracker/output/US/<US-STATE-CODE>/
 
 ---
 
+## Accessing data as CSV
+
+If you prefer to use CSVs instead, you can go to -
+
+```
+https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility-<social-place>.csv
+```
+
+Where social place is one of `parks` | `residential` | `retail-and-recreation` | `transit-stations` | `workplaces` | `grocery-and-pharmacy`
+
+For eg. parks data for India in CSV - https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility-parks.csv
+
+For US states, just add the state code after the country code.
+
 #### Data structure
 
 Each data element consists of `date` and `value` (which represents mobility change in percentage)
-
-#### Other Data Formats
-
-Data is made available only in JSON Format right as of now.
-If you prefer to use CSVs instead, please use https://json-csv.com/ to convert
-this data for the time being.
 
 ## Limitations
 
