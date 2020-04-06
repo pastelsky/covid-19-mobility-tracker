@@ -12,7 +12,7 @@ and the data isn't available in a machine-readable format that could enable more
 
 ## Usage
 
-### Country-level data
+#### Country-level data
 
 Country level JSON is available for use at –
 
@@ -22,7 +22,7 @@ https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/
 
 **For eg India**: https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility.json
 
-### US State-level data
+#### US State-level data
 
 US state level JSON is available at –
 
@@ -32,9 +32,8 @@ https://pastelsky.github.io/covid-19-mobility-tracker/output/US/<US-STATE-CODE>/
 
 **For eg: New York**: https://pastelsky.github.io/covid-19-mobility-tracker/output/US/NY/mobility.json
 
----
 
-## Accessing data as CSV
+### Accessing data as CSV
 
 If you prefer to use CSVs instead, you can go to -
 
