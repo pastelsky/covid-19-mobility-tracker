@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const processPDFPage = require('./parseFromPdf');
 const download = require('download');
-const countryCodes = require('country-codes-list');
+const countryCodes = require('./lib/country-codes-list.json');
 const rimraf = require('rimraf');
 const { default: PQueue } = require('p-queue');
 const { default: Worker } = require('jest-worker');
@@ -27,7 +27,7 @@ const chartTypes = [
   'residential',
 ];
 
-const countryCodesList = Object.keys(countryCodes.customList('countryCode', '[{countryCode}]'));
+const countryCodesList = Object.keys(countryCodes);
 const USStateCodeList = Object.values(USStates).map(
   (stateName) => `US_${stateName.replace(/ /g, '_')}`
 );
