@@ -9,8 +9,8 @@ const { default: Worker } = require('jest-worker');
 const USStates = require('./lib/us-states');
 const { jsonArrayToCSV } = require('./utils');
 const { paramCase } = require('change-case');
-
-const DATA_LAST_AVAILABLE_FOR_DATE = '2020-03-29';
+const _ = require('lodash');
+const DATA_LAST_AVAILABLE_FOR_DATE = '2020-04-05';
 const DOWNLOAD_CONCURRENCY = 20;
 const PROCESS_CONCURRENCY = 30;
 
@@ -40,7 +40,7 @@ const getUSStateCodeFromStateNameCode = (stateNameCode) => {
 
 const downloadQueue = new PQueue({ concurrency: DOWNLOAD_CONCURRENCY });
 const processQueue = new PQueue({ concurrency: PROCESS_CONCURRENCY });
-const pdfsPath = path.join(__dirname, 'pdfs');
+const pdfsPath = path.join(__dirname, 'pdfs', DATA_LAST_AVAILABLE_FOR_DATE);
 const outputPath = path.join(__dirname, 'output');
 
 async function downloadPdf(countryCode) {
@@ -80,6 +80,25 @@ function downloadForAll(geographies) {
   });
 }
 
+function mergeMobilityJSON(jsonA, jsonB, jsonKey) {
+  const combined = {};
+
+  chartTypes.forEach((chartType) => {
+    const aPoints = jsonA[jsonKey][chartType].points;
+    const bPoints = jsonB[jsonKey][chartType].points;
+
+    combined[chartType] = {
+      points: _.uniqBy([...aPoints, ...bPoints], (p) => p.date).sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      ),
+    };
+  });
+
+  return {
+    [jsonKey]: combined,
+  };
+}
+
 function processForAll(geographyCodes, stateFromCountryCode) {
   const processWorker = new Worker(require.resolve('./parseFromPdf'));
   processWorker.getStderr().pipe(process.stderr);
@@ -110,22 +129,25 @@ function processForAll(geographyCodes, stateFromCountryCode) {
     }
 
     const jsonKey = stateFromCountryCode ? 'state' : 'country';
-    const json = { [jsonKey]: {} };
+    const currentJSON = require(path.join(fileOutputPath, 'mobility.json'));
+    const newJson = { [jsonKey]: {} };
 
     charts.forEach((chart, i) => {
-      json[jsonKey][chartTypes[i]] = chart;
+      newJson[jsonKey][chartTypes[i]] = chart;
     });
+
+    const combinedJSON = mergeMobilityJSON(currentJSON, newJson, jsonKey);
 
     fs.writeFileSync(
       path.join(fileOutputPath, 'mobility.json'),
-      JSON.stringify(json, null, 2),
+      JSON.stringify(combinedJSON, null, 2),
       'utf8'
     );
 
     charts.forEach((chart, i) => {
       fs.writeFileSync(
         path.join(fileOutputPath, `mobility-${paramCase(chartTypes[i])}.csv`),
-        jsonArrayToCSV(json[jsonKey][chartTypes[i]].points),
+        jsonArrayToCSV(combinedJSON[jsonKey][chartTypes[i]].points),
         'utf8'
       );
     });
@@ -137,11 +159,11 @@ function processForAll(geographyCodes, stateFromCountryCode) {
 
 async function run() {
   try {
-    cleanPath(pdfsPath);
+    // cleanPath(pdfsPath);
     const countryCodes = await downloadForAll(countryCodesList);
     const USStateCodes = await downloadForAll(USStateCodeList);
 
-    cleanPath(outputPath);
+    // cleanPath(outputPath);
     await processForAll(countryCodes);
     await processForAll(USStateCodes, 'US');
   } catch (err) {

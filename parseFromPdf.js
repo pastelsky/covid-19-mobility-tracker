@@ -5,8 +5,8 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const { compressSVG, scale } = require('./utils');
 
-const X_DATE_MIN = new Date(Date.UTC(2020, 1, 16, 0, 0, 1));
-const X_DATE_MAX = new Date(Date.UTC(2020, 2, 29, 23, 59, 59));
+const X_DATE_MIN = new Date(Date.UTC(2020, 1, 23, 0, 0, 1));
+const X_DATE_MAX = new Date(Date.UTC(2020, 3, 5, 23, 59, 59));
 
 const Y_PERCENT_MAX = 80;
 
