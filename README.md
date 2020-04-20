@@ -1,14 +1,16 @@
 # Covid-19 Mobility Tracker
 
-![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2012th%208:01%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%209th%205:45%20PM%20GMT/blue)
+![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2020th%208:01%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%2011th%205:45%20PM%20GMT/blue)
 
 [Google Mobility Reports](https://www.google.com/covid19/mobility/) show aggregate activity in each country,
 and how it changes in response to policies aimed at combating COVID-19. However, it is only published as a PDF
 and the data isn't available in a machine-readable format that could enable more richer analysis.
 
+ALL WORK WAS DONE BY PASTELSKY, THIS IS JUST A FORK
+
 **This is an effort to reverse-engineer the PDFs into vectors and ultimately into time-series data available as a JSON Rest API.**
 
-![alt text](https://github.com/pastelsky/covid-19-mobility-tracker/raw/master/code.png)
+![alt text](https://github.com/ssugar/covid-19-mobility-tracker/raw/master/code.png)
 
 ## Usage
 
@@ -17,32 +19,32 @@ and the data isn't available in a machine-readable format that could enable more
 Country level JSON is available for use at –
 
 ```
-https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility.json
+https://ssugar.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility.json
 ```
 
-**For eg India**: https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility.json
+**For eg India**: https://ssugar.github.io/covid-19-mobility-tracker/output/IN/mobility.json
 
 #### US State-level data
 
 US state level JSON is available at –
 
 ```
-https://pastelsky.github.io/covid-19-mobility-tracker/output/US/<US-STATE-CODE>/mobility.json
+https://ssugar.github.io/covid-19-mobility-tracker/output/US/<US-STATE-CODE>/mobility.json
 ```
 
-**For eg: New York**: https://pastelsky.github.io/covid-19-mobility-tracker/output/US/NY/mobility.json
+**For eg: New York**: https://ssugar.github.io/covid-19-mobility-tracker/output/US/NY/mobility.json
 
 ### Accessing data as CSV
 
 If you prefer to use CSVs instead, you can go to -
 
 ```
-https://pastelsky.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility-<social-place>.csv
+https://ssugar.github.io/covid-19-mobility-tracker/output/<ISO-COUNTRY-CODE>/mobility-<social-place>.csv
 ```
 
 Where social place is one of `parks` | `residential` | `retail-and-recreation` | `transit-stations` | `workplaces` | `grocery-and-pharmacy`
 
-For eg. parks data for India in CSV - https://pastelsky.github.io/covid-19-mobility-tracker/output/IN/mobility-parks.csv
+For eg. parks data for India in CSV - https://ssugar.github.io/covid-19-mobility-tracker/output/IN/mobility-parks.csv
 
 For US states, just add the state code after the country code.
 
