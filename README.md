@@ -1,6 +1,6 @@
 # Covid-19 Mobility Tracker
 
-![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2022th%208:01%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%2016th%205:45%20PM%20GMT/blue)
+![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2022th/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%2016th/blue)
 
 ### Note
 **Note**: Google recently started publishing raw CSV data
@@ -69,7 +69,7 @@ Each data element consists of `date` and `value` (which represents mobility chan
 ## Contributing
 
 1. Run `yarn install` to install dependencies.
-2. Install Inkscape `1.0beta2` for your OS, and make sure the `inkscape` is available
+2. Install `Inkscape 1.1-dev` for your OS, and make sure the `inkscape` is available
    as in your path as a command line utility.
    You can test this using `inkscape --version`
 
