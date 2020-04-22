@@ -1,6 +1,14 @@
 # Covid-19 Mobility Tracker
 
-![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2012th%208:01%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%209th%205:45%20PM%20GMT/blue)
+![last synced from source](https://badgen.net/badge/last%20synced%20from%20source/April%2022th%208:01%20PM%20GMT/green) ![last update from google](https://badgen.net/badge/last%20update%20from%20google/April%2016th%205:45%20PM%20GMT/blue)
+
+### Note
+**Note**: Google recently started publishing raw CSV data
+for this, and following it is recommended for all future updates.
+
+This project would still continue update sources, but it might not be
+as realtime.
+
 
 [Google Mobility Reports](https://www.google.com/covid19/mobility/) show aggregate activity in each country,
 and how it changes in response to policies aimed at combating COVID-19. However, it is only published as a PDF

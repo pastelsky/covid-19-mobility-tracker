@@ -5,17 +5,17 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const { compressSVG, scale } = require('./utils');
 
-const X_DATE_MIN = new Date(Date.UTC(2020, 1, 23, 0, 0, 1));
-const X_DATE_MAX = new Date(Date.UTC(2020, 3, 5, 23, 59, 59));
+const X_DATE_MIN = new Date(Date.UTC(2020, 1, 29, 0, 0, 1));
+const X_DATE_MAX = new Date(Date.UTC(2020, 3, 11, 23, 59, 59));
 
 const Y_PERCENT_MAX = 80;
 
 async function pdfToSVG(pdfFile, pageNumber, exportPath) {
   console.log(
-    `inkscape --without-gui --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile} `
+    `inkscape --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-filename=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile} `
   );
   shell.exec(
-    `inkscape --without-gui --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-file=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile}`
+    `inkscape --pdf-poppler --export-type=svg --export-plain-svg  --export-area-page --export-filename=${exportPath} --pdf-page ${pageNumber} --vacuum-defs ${pdfFile}`
   );
   const svg = fs.readFileSync(exportPath, 'utf8');
   fs.writeFileSync(exportPath, svg, 'utf8');

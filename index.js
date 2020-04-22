@@ -10,7 +10,7 @@ const USStates = require('./lib/us-states');
 const { jsonArrayToCSV } = require('./utils');
 const { paramCase } = require('change-case');
 const _ = require('lodash');
-const DATA_LAST_AVAILABLE_FOR_DATE = '2020-04-05';
+const DATA_LAST_AVAILABLE_FOR_DATE = '2020-04-11';
 const DOWNLOAD_CONCURRENCY = 20;
 const PROCESS_CONCURRENCY = 30;
 
